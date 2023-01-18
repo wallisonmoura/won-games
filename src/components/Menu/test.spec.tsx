@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 import { renderWithTheme } from 'utils/tests/helpers'
 
 import Menu from '.'
@@ -15,12 +15,40 @@ describe('<Menu />', () => {
 
   it('should handle the open/close mobile menu', () => {
     renderWithTheme(<Menu />)
-    // Selecionar o nosso menuFull
+    // Select the menuFull
+    const fullMenuElement = screen.getByRole('navigation', { hidden: true })
 
-    // Verificar se o menu tá escondido
+    // Check if the menu is hidden
+    expect(fullMenuElement.getAttribute('aria-hidden')).toBe('true')
+    expect(fullMenuElement).toHaveStyle({ opacity: 0 })
 
-    // Clicar no botão de abrir o menu e verificar se abriu
+    // Click on the button to open the menu and check if it opened
+    fireEvent.click(screen.getByLabelText(/open menu/i))
+    expect(fullMenuElement.getAttribute('aria-hidden')).toBe('false')
+    expect(fullMenuElement).toHaveStyle({ opacity: 1 })
 
-    // Clicar no botao de fechar o menu e verifcar se ele fechou
+    // Click on the close menu button and check if it closed
+    fireEvent.click(screen.getByLabelText(/close menu/i))
+    expect(fullMenuElement.getAttribute('aria-hidden')).toBe('true')
+    expect(fullMenuElement).toHaveStyle({ opacity: 0 })
+  })
+
+  it('should show register box when logged out', () => {
+    renderWithTheme(<Menu />)
+
+    expect(screen.queryByText(/my account/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/wishlist/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/log in now/i)).toBeInTheDocument()
+    expect(screen.getByText(/sign up/i)).toBeInTheDocument()
+  })
+
+  it('should show wishlist and my account when logged in', () => {
+    renderWithTheme(<Menu username="teste" />)
+
+    expect(screen.getByText(/my account/i)).toBeInTheDocument()
+    expect(screen.getByText(/wishlist/i)).toBeInTheDocument()
+
+    expect(screen.queryByText(/log in now/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/sign up/i)).not.toBeInTheDocument()
   })
 })
