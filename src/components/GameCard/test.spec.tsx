@@ -1,4 +1,5 @@
-import { screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
+import theme from 'styles/theme'
 import { renderWithTheme } from 'utils/tests/helpers'
 
 import GameCard from '.'
@@ -28,5 +29,46 @@ describe('<GameCard />', () => {
     )
 
     expect(screen.getByLabelText(/Add to Wishlist/i)).toBeInTheDocument()
+  })
+
+  it('should render price in label', () => {
+    renderWithTheme(<GameCard {...props} />)
+
+    const price = screen.getByText('R$ 235,00')
+    // Preço nao tenha line-throught
+    expect(price).not.toHaveStyle({ TextDecoration: 'line-through' })
+
+    // preço tenha o background secundário
+    expect(price).toHaveStyle({ backgroundColor: theme.colors.secondary })
+  })
+
+  it('should render a line-through in price when promotion', () => {
+    //renderizar o componente (com promotionalPrice) // 200 reais  //15 reais
+    renderWithTheme(<GameCard {...props} promotionalPrice="R$ 15,00" />)
+
+    // preço tenha line-through (235)
+    expect(screen.getByText('R$ 235,00')).toHaveStyle({
+      textDecoration: 'line-through'
+    })
+
+    // preço novo promocional não vai ter line-through (15)
+    expect(screen.getByText('R$ 15,00')).not.toHaveStyle({
+      textDecoration: 'line-through'
+    })
+  })
+
+  it('should render a filled  favorite icon when is true', () => {
+    renderWithTheme(<GameCard {...props} favorite />)
+
+    expect(screen.getByLabelText(/remove from Wishlist/i)).toBeInTheDocument()
+  })
+
+  it('should call onFav method when favorite is click', () => {
+    const onFav = jest.fn()
+    renderWithTheme(<GameCard {...props} favorite onFav={onFav} />)
+
+    fireEvent.click(screen.getAllByRole('button')[0])
+
+    expect(onFav).toBeCalled()
   })
 })
