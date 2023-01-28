@@ -1,5 +1,5 @@
 import 'match-media-mock'
-import { screen, render } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 
 import BannerSlider from '.'
 import { renderWithTheme } from 'utils/tests/helpers'
