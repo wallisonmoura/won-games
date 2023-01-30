@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import * as S from './styles'
 
-export type HighlightsProps = {
+export type HighlightProps = {
   title: string
   subtitle: string
   backgroundImage: string
@@ -19,7 +19,7 @@ const Highlight = ({
   buttonLabel,
   buttonLink,
   alignment = 'right'
-}: HighlightsProps) => {
+}: HighlightProps) => {
   return (
     <S.Wrapper alignment={alignment} backgroundImage={backgroundImage}>
       {!!floatImage && <S.FloatImage src={floatImage} alt={title} />}
