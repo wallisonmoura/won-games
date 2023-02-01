@@ -31,7 +31,7 @@ const FormSignIn = () => {
         <S.FormLink>
           Don`t have an account?
           <Link href="/sign-up" legacyBehavior>
-            <a>Sign Up</a>
+            <a> Sign Up</a>
           </Link>
         </S.FormLink>
       </form>
