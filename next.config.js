@@ -5,7 +5,10 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development'
 })
 const nextConfig = withPWA({
-  reactStrictMode: true
+  reactStrictMode: true,
+  compiler: {
+    styledComponents: true
+  }
 })
 
 module.exports = nextConfig
