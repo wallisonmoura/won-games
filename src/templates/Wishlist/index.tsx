@@ -23,13 +23,13 @@ const Wishlist = ({
         <Heading lineLeft lineColor="secondary">
           Wishlist
         </Heading>
-
-        <Showcase
-          title="You may like these games"
-          games={recommendedGames}
-          highlight={recommendedHighlight}
-        />
       </Container>
+
+      <Showcase
+        title="You may like these games"
+        games={recommendedGames}
+        highlight={recommendedHighlight}
+      />
     </Base>
   )
 }
