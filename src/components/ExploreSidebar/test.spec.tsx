@@ -1,6 +1,5 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { css } from 'styled-components'
 import { renderWithTheme } from 'utils/tests/helpers'
 
 import ExploreSidebar from '.'
