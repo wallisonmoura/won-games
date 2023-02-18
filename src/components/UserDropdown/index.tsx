@@ -35,14 +35,14 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
         <Link href="/wishlist" legacyBehavior passHref>
           <S.Link title="Wishlist">
             <FavoriteBorder />
-            <span>My profile</span>
+            <span>Wishlist</span>
           </S.Link>
         </Link>
 
         <Link href="/logout" legacyBehavior passHref>
           <S.Link title="Sign out">
             <ExitToApp />
-            <span>My profile</span>
+            <span>Sign out</span>
           </S.Link>
         </Link>
       </S.Nav>
