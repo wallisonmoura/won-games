@@ -18,9 +18,6 @@ import { gamesMapper, highlightMapper } from 'utils/mappers'
 
 import Game, { GameTemplateProps } from 'templates/Game'
 
-import gamesMock from 'components/GameCardSlider/mock'
-import highlightMock from 'components/Highlight/mock'
-
 const apolloClient = initializeApollo()
 
 export default function Index(props: GameTemplateProps) {
