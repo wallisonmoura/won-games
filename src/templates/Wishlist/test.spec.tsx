@@ -37,6 +37,7 @@ describe('<Wishlist />', () => {
   it('should render empty when there are no game', () => {
     renderWithTheme(
       <Wishlist
+        recommendedTitle="You may like these games"
         recommendedGames={gamesMock}
         recommendedHighlight={highlightMock}
       />
