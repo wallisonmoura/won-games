@@ -47,7 +47,7 @@ const Wishlist = ({
       </Container>
 
       <Showcase
-        title={recommendedTitle || 'you may like these games'}
+        title={recommendedTitle}
         games={recommendedGames}
         highlight={recommendedHighlight}
       />
