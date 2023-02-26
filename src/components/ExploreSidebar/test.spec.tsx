@@ -56,7 +56,7 @@ describe('<ExploreSidebar />', () => {
     expect(screen.getByRole('radio', { name: /low to high/i })).toBeChecked()
   })
 
-  it('should filter with initial values', async () => {
+  it('should filter with initial values', () => {
     const onFilter = jest.fn()
 
     renderWithTheme(
@@ -66,8 +66,6 @@ describe('<ExploreSidebar />', () => {
         onFilter={onFilter}
       />
     )
-
-    await userEvent.click(screen.getByRole('button', { name: /filter/i }))
 
     expect(onFilter).toBeCalledWith({
       platforms: ['windows'],
@@ -84,7 +82,7 @@ describe('<ExploreSidebar />', () => {
     await userEvent.click(screen.getByLabelText(/linux/i))
     await userEvent.click(screen.getByLabelText(/low to high/i))
 
-    await userEvent.click(screen.getByRole('button', { name: /filter/i }))
+    expect(onFilter).toHaveBeenCalledTimes(4)
 
     expect(onFilter).toBeCalledWith({
       platforms: ['windows', 'linux'],
@@ -99,8 +97,6 @@ describe('<ExploreSidebar />', () => {
 
     await userEvent.click(screen.getByLabelText(/low to high/i))
     await userEvent.click(screen.getByLabelText(/high to low/i))
-
-    await userEvent.click(screen.getByRole('button', { name: /filter/i }))
 
     expect(onFilter).toBeCalledWith({ sort_by: 'high-to-low' })
   })
@@ -125,6 +121,15 @@ describe('<ExploreSidebar />', () => {
     })
 
     await userEvent.click(screen.getByLabelText(/close filters/))
+
+    expect(Element).not.toHaveStyleRule('opacity', '1', {
+      media: '(max-width:768px)',
+      modifier: `${Overlay}`
+    })
+
+    await userEvent.click(screen.getByLabelText(/open filters/))
+
+    await userEvent.click(screen.getByRole('button', { name: /filter/i }))
 
     expect(Element).not.toHaveStyleRule('opacity', '1', {
       media: '(max-width:768px)',
