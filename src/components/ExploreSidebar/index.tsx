@@ -46,13 +46,13 @@ const ExploreSidebar = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values])
 
-  const handleCheckbox = (name: string, value: string) => {
-    const currentList = (values[name] as []) || []
-    setValues((state) => ({ ...state, [name]: xor(currentList, [value]) }))
+  const handleRadio = (name: string, value: string | boolean) => {
+    setValues((s) => ({ ...s, [name]: value }))
   }
 
-  const handleRadio = (name: string, value: string | boolean) => {
-    setValues((state) => ({ ...state, [name]: value }))
+  const handleCheckbox = (name: string, value: string) => {
+    const currentList = (values[name] as []) || []
+    setValues((s) => ({ ...s, [name]: xor(currentList, [value]) }))
   }
 
   const handleFilterMenu = () => {
