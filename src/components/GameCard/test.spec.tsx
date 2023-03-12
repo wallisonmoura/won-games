@@ -1,6 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from 'utils/test-utils'
 import theme from 'styles/theme'
-import { renderWithTheme } from 'utils/tests/helpers'
 
 import GameCard from '.'
 
@@ -14,7 +13,7 @@ const props = {
 
 describe('<GameCard />', () => {
   it('should render correctly', () => {
-    const { container } = renderWithTheme(<GameCard {...props} />)
+    const { container } = render(<GameCard {...props} />)
 
     expect(
       screen.getByRole('heading', { name: props.title })
@@ -40,7 +39,7 @@ describe('<GameCard />', () => {
   })
 
   it('should render price in label', () => {
-    renderWithTheme(<GameCard {...props} />)
+    render(<GameCard {...props} />)
 
     const price = screen.getByText('$235.00')
     // Preço nao tenha line-throught
@@ -52,7 +51,7 @@ describe('<GameCard />', () => {
 
   it('should render a line-through in price when promotion', () => {
     //renderizar o componente (com promotionalPrice) // 200 reais  //15 reais
-    renderWithTheme(<GameCard {...props} promotionalPrice={15} />)
+    render(<GameCard {...props} promotionalPrice={15} />)
 
     // preço tenha line-through (235)
     expect(screen.getByText('$235.00')).toHaveStyle({
@@ -66,14 +65,14 @@ describe('<GameCard />', () => {
   })
 
   it('should render a filled  favorite icon when is true', () => {
-    renderWithTheme(<GameCard {...props} favorite />)
+    render(<GameCard {...props} favorite />)
 
     expect(screen.getByLabelText(/remove from Wishlist/i)).toBeInTheDocument()
   })
 
   it('should call onFav method when favorite is click', () => {
     const onFav = jest.fn()
-    renderWithTheme(<GameCard {...props} favorite onFav={onFav} />)
+    render(<GameCard {...props} favorite onFav={onFav} />)
 
     fireEvent.click(screen.getAllByRole('button')[0])
 
@@ -81,7 +80,7 @@ describe('<GameCard />', () => {
   })
 
   it('should render a ribbon', () => {
-    renderWithTheme(
+    render(
       <GameCard
         {...props}
         ribbon="My ribbon"
