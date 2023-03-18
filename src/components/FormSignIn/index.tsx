@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import { Email, Lock } from '@styled-icons/material-outlined'
 
@@ -6,15 +7,41 @@ import TextField from 'components/TextField'
 import { FormLink, FormWrapper } from 'components/Form'
 
 import * as S from './styles'
+import { signIn } from 'next-auth/client'
+import { useRouter } from 'next/router'
 
 const FormSignIn = () => {
+  const [values, setValues] = useState({})
+  const { push } = useRouter()
+
+  const handleInput = (field: string, value: string) => {
+    setValues((s) => ({ ...s, [field]: value }))
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    const result = await signIn('credentials', {
+      ...values,
+      redirect: false,
+      callbackUrl: '/'
+    })
+
+    if (result?.url) {
+      return push(result.url)
+    }
+
+    console.error('Email ou senha invalida')
+  }
+
   return (
     <FormWrapper>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextField
           name="email"
           placeholder="Email"
           type="email"
+          onInputChange={(v) => handleInput('email', v)}
           icon={<Email />}
         />
 
@@ -22,12 +49,13 @@ const FormSignIn = () => {
           name="password"
           placeholder="Password"
           type="password"
+          onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
         />
 
         <S.ForgotPassword href="#">Forgot your password?</S.ForgotPassword>
 
-        <Button size="large" fullWidth>
+        <Button type="submit" size="large" fullWidth>
           Sign in now
         </Button>
 
