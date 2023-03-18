@@ -1,6 +1,7 @@
 import { Container } from 'components/Container'
 import Footer from 'components/Footer'
 import Menu from 'components/Menu'
+import { useSession } from 'next-auth/client'
 import * as S from './styles'
 
 export type BaseTemplateProps = {
@@ -8,10 +9,11 @@ export type BaseTemplateProps = {
 }
 
 const Base = ({ children }: BaseTemplateProps) => {
+  const [session] = useSession()
   return (
     <S.Wrapper>
       <Container>
-        <Menu />
+        <Menu username={session?.user?.name} />
       </Container>
 
       <S.Content>{children}</S.Content>
