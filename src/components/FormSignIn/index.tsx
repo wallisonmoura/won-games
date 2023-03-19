@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/client'
 import { Email, Lock, ErrorOutline } from '@styled-icons/material-outlined'
 
-import { FieldErros, signInValidate } from 'utils/validations'
+import { FieldErrors, signInValidate } from 'utils/validations'
 
 import Button from 'components/Button'
 import TextField from 'components/TextField'
@@ -14,10 +14,11 @@ import * as S from './styles'
 
 const FormSignIn = () => {
   const [formError, setFormError] = useState('')
-  const [fieldError, setFieldError] = useState<FieldErros>({})
+  const [fieldError, setFieldError] = useState<FieldErrors>({})
   const [values, setValues] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
-  const { push } = useRouter()
+  const routes = useRouter()
+  const { push, query } = routes
 
   const handleInput = (field: string, value: string) => {
     setValues((s) => ({ ...s, [field]: value }))
@@ -40,7 +41,7 @@ const FormSignIn = () => {
     const result = await signIn('credentials', {
       ...values,
       redirect: false,
-      callbackUrl: '/'
+      callbackUrl: `${window.location.origin}${query?.callbackUrl || ''}`
     })
 
     if (result?.url) {
