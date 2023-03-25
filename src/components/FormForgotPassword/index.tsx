@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/client'
 import { Email, ErrorOutline } from '@styled-icons/material-outlined'
 
-import { FieldErrors } from 'utils/validations'
+import { FieldErrors, forgotValidate } from 'utils/validations'
 
 import Button from 'components/Button'
 import TextField from 'components/TextField'
@@ -25,7 +25,7 @@ const FormForgotPassword = () => {
     event.preventDefault()
     setLoading(true)
 
-    const errors = {}
+    const errors = forgotValidate(values)
 
     if (Object.keys(errors).length) {
       setFieldError(errors)
