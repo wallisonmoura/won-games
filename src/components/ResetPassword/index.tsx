@@ -55,7 +55,6 @@ const FormResetPassword = () => {
       setFormError(data.message[0].messages[0].message)
       setLoading(false)
     } else {
-      console.log('Sucess', data)
       signIn('credentials', {
         email: data.user.email,
         password: values.password,

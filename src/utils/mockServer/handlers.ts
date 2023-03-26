@@ -4,11 +4,17 @@ type LoginReqBody = {
   email: string
 }
 
+type ResetReqBody = {
+  code: string
+  password: string
+  passwordConfirmation: string
+}
+
 // onde será interceptado as chamadas
 export const handlers = [
   rest.post<LoginReqBody>(
     `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`,
-    async (req, res, ctx) => {
+    (req, res, ctx) => {
       const { email } = req.body
 
       // quando dar erro
@@ -34,6 +40,40 @@ export const handlers = [
         ctx.status(200),
         ctx.json({
           email
+        })
+      )
+    }
+  ),
+
+  rest.post<ResetReqBody>(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/reset-password`,
+    (req, res, ctx) => {
+      const { code } = req.body
+
+      if (code === 'wrong_code') {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            error: 'Bad Request',
+            message: [
+              {
+                messages: [
+                  {
+                    message: 'Incorrect code provided.'
+                  }
+                ]
+              }
+            ]
+          })
+        )
+      }
+
+      return res(
+        ctx.status(200),
+        ctx.json({
+          user: {
+            email: 'valid@email.com'
+          }
         })
       )
     }
