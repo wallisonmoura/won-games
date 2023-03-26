@@ -78,7 +78,7 @@ const FormSignIn = () => {
           onInputChange={(v) => handleInput('password', v)}
           icon={<Lock />}
         />
-        <Link href="/forgot-password" passHref>
+        <Link href="/forgot-password" passHref legacyBehavior>
           <S.ForgotPassword>Forgot your password?</S.ForgotPassword>
         </Link>
 
