@@ -1,3 +1,4 @@
+import 'session.mock'
 import { render, screen, waitFor } from 'utils/test-utils'
 import { MockedProvider } from '@apollo/client/testing'
 
