@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from 'utils/test-utils'
 import 'session.mock'
+import { render, screen } from 'utils/test-utils'
 import theme from 'styles/theme'
 
 import GameCard from '.'
