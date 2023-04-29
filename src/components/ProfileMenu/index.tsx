@@ -3,7 +3,6 @@ import Link from 'next/link'
 
 import {
   AccountCircle,
-  CreditCard,
   ExitToApp,
   FormatListBulleted
 } from '@styled-icons/material-outlined'
@@ -21,13 +20,6 @@ const ProfileMenu = ({ activeLink }: ProfileMenuProps) => {
         <S.Link isActive={activeLink === '/profile/me'} title="My profile">
           <AccountCircle size={24} />
           <span>My profile</span>
-        </S.Link>
-      </Link>
-
-      <Link href="/profile/cards" passHref legacyBehavior>
-        <S.Link isActive={activeLink === '/profile/cards'} title="My cards">
-          <CreditCard size={24} />
-          <span>My cards</span>
         </S.Link>
       </Link>
 

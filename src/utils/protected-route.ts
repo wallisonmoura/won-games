@@ -9,6 +9,11 @@ async function protectedRoutes(context: GetServerSidePropsContext) {
       location: `/sign-in?callbackUrl=${context.resolvedUrl}`
     })
     context.res.end()
+    // context.res.setHeader(
+    //   'Location',
+    //   `/sign-in?callbackUrl=${context.resolvedUrl}`
+    // )
+    // context.res.statusCode = 302
   }
 
   return session
