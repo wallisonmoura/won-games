@@ -60,7 +60,10 @@ const GameCard = ({
 
         <S.BuyBox>
           {price === 0 ? (
-            <S.Price>FREE</S.Price>
+            <>
+              <S.Price>FREE</S.Price>
+              <CartButton id={id} />
+            </>
           ) : (
             <>
               {!!promotionalPrice && (

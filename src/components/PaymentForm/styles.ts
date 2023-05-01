@@ -39,3 +39,9 @@ export const Error = styled.p`
     gap: ${theme.spacings.xxsmall};
   `}
 `
+
+export const FreeGames = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.colors.black};
+  `}
+`
