@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Session } from 'next-auth'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 
 import { useCart } from 'hooks/use-cart'
+import { createPaymentIntent } from 'utils/stripe/methods'
 
 import Button from 'components/Button'
 import Heading from 'components/Heading'
+import { FormLoading } from 'components/Form'
 
 import * as S from './styles'
-import { createPaymentIntent } from 'utils/stripe/methods'
-import { Session } from 'next-auth'
-import { useRouter } from 'next/router'
-import { FormLoading } from 'components/Form'
 
 type PaymentFormProps = {
   session: Session
@@ -72,8 +72,12 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setLoading(true)
 
     // se for freeGames
-    // salva no banco
-    // redireciona para sucess
+    if (freeGames) {
+      // salva no banco
+      // redireciona para sucess
+      push('/success')
+      return
+    }
 
     const payload = await stripe!.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -88,9 +92,9 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       setError(null)
       setLoading(false)
 
-      console.log('aeeeee, compra realizada')
       // salvar a conta no banco do strapi
       // redirecionar para página de sucesso
+      push('/success')
     }
   }
   return (
