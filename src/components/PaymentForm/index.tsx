@@ -13,6 +13,7 @@ import Heading from 'components/Heading'
 import { FormLoading } from 'components/Form'
 
 import * as S from './styles'
+import Link from 'next/link'
 
 type PaymentFormProps = {
   session: Session
@@ -122,7 +123,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           </Heading>
 
           {freeGames ? (
-            <S.FreeGames>Only free games, click buy and enjoy</S.FreeGames>
+            <S.FreeGames>Only free games, click buy and enjoy!</S.FreeGames>
           ) : (
             <CardElement
               options={{
@@ -145,9 +146,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           )}
         </S.Body>
         <S.Footer>
-          <Button as="a" fullWidth minimal>
-            Continue shopping
-          </Button>
+          <Link href="/" passHref>
+            <Button as="a" fullWidth minimal>
+              Continue shopping
+            </Button>
+          </Link>
           <Button
             fullWidth
             icon={loading ? <FormLoading /> : <ShoppingCart />}
