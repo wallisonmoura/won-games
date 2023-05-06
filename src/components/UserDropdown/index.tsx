@@ -1,4 +1,5 @@
 import { signOut } from 'next-auth/client'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import {
   AccountCircle,
@@ -16,6 +17,7 @@ export type UserDropdownProps = {
 }
 
 const UserDropdown = ({ username }: UserDropdownProps) => {
+  const { push } = useRouter()
   return (
     <Dropdown
       title={
@@ -41,7 +43,14 @@ const UserDropdown = ({ username }: UserDropdownProps) => {
           </S.Link>
         </Link>
 
-        <S.Link role="button" onClick={() => signOut()} title="Sign out">
+        <S.Link
+          role="button"
+          onClick={async () => {
+            const data = await signOut({ redirect: false, callbackUrl: '/' })
+            push(data.url)
+          }}
+          title="Sign out"
+        >
           <ExitToApp />
           <span>Sign out</span>
         </S.Link>
