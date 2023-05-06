@@ -8,6 +8,9 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   compiler: {
     styledComponents: true
+  },
+  images: {
+    domains: ['localhost', 'res.cloudinary.com']
   }
 })
 
