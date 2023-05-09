@@ -1,8 +1,11 @@
 import Link from 'next/link'
 
+const currentYear = new Date().getFullYear()
+
 import Heading from 'components/Heading'
 import Logo from 'components/Logo'
 import * as S from './styles'
+import Image from 'next/legacy/image'
 
 export type AuthProps = {
   title: string
@@ -13,6 +16,12 @@ const Auth = ({ title, children }: AuthProps) => {
   return (
     <S.Wrapper>
       <S.BannerBlock>
+        <Image
+          src="/img/auth-bg.jpg"
+          alt="Won Games Auth Page"
+          layout="fill"
+          objectFit="cover"
+        />
         <S.BannerContent>
           <Link href="/" legacyBehavior>
             <a>
@@ -23,12 +32,14 @@ const Auth = ({ title, children }: AuthProps) => {
           <div>
             <Heading size="huge">All your favorite games in one place</Heading>
             <S.Subtitle>
-              <strong>Won</strong> is the best and most complete gaming
+              <strong>WON</strong> is the best and most complete gaming
               platform.
             </S.Subtitle>
           </div>
 
-          <S.Footer>Won games 2023 c Todos os Direitos Reservados</S.Footer>
+          <S.Footer>
+            Won Games {currentYear}© Todos os Direitos Reservados
+          </S.Footer>
         </S.BannerContent>
       </S.BannerBlock>
 
@@ -39,10 +50,10 @@ const Auth = ({ title, children }: AuthProps) => {
               <Logo id="content" color="black" size="large" />
             </a>
           </Link>
-
           <Heading color="black" lineColor="secondary" lineLeft>
             {title}
           </Heading>
+
           {children}
         </S.ContentWrapper>
       </S.Content>

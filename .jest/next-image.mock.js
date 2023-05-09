@@ -1,5 +1,5 @@
 /* eslint-disable */
-import * as nextImage from 'next/image'
+import * as nextImage from 'next/legacy/image'
 
 Object.defineProperty(nextImage, 'default', {
   configurable: true,

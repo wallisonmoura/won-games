@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon'
 import CartButton from 'components/CartButton'
 import WishlistButton from 'components/WishlistButton'
@@ -43,14 +43,7 @@ const GameCard = ({
       )}
       <Link href={`/game/${slug}`} passHref legacyBehavior>
         <S.ImageBox>
-          <Image
-            src={img}
-            alt={title}
-            fill
-            style={{
-              objectFit: 'cover'
-            }}
-          />
+          <Image src={img} alt={title} layout="fill" objectFit="cover" />
         </S.ImageBox>
       </Link>
 
