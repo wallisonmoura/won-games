@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Button from 'components/Button'
 import Ribbon, { RibbonColors, RibbonSizes } from 'components/Ribbon'
 import * as S from './styles'
@@ -33,14 +33,7 @@ const Banner = ({
       )}
 
       <S.ImageWrapper>
-        <Image
-          src={img}
-          alt={title}
-          fill
-          style={{
-            objectFit: 'cover'
-          }}
-        />
+        <Image src={img} alt={title} layout="fill" objectFit="cover" />
       </S.ImageWrapper>
       <S.Caption>
         <S.Title>{title}</S.Title>
