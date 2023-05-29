@@ -108,6 +108,7 @@ exports[`<Highlight /> should render headings and buttons 1`] = `
 
 <section
   class="c0"
+  data-cy="highlight"
 >
   <img
     alt="heading 1 background"
