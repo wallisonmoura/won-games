@@ -79,7 +79,7 @@ const Gallery = ({ items }: GalleryProps) => {
             width={295}
             height={165}
             role="button"
-            key={`Thumb-${index}`}
+            key={`thumb-${index}`}
             src={item.src}
             alt={`Thumb - ${item.label}`}
             onClick={() => {
