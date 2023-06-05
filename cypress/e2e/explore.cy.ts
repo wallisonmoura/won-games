@@ -38,7 +38,11 @@ describe('Explore page', () => {
     cy.findByText(/highest to lowest/i ).click()
     cy.location('href').should('contain', 'sort=price%3Adesc')
     cy.getByDataCy('game-card').first().within(() => {
-      cy.findByText('FREE').should('not.exist')
+      cy.findByText(/^\$\d+(\.\d{1,2})?/)
+        .invoke('text')
+        .then($el => $el.replace('$', ''))
+        .then(parseFloat)
+        .should('be.gt', 0)
     })
   })
 })
