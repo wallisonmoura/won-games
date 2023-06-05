@@ -54,6 +54,13 @@ Cypress.Commands.add('signUp', (user: User) => {
   cy.findByRole('button', { name: /sign up now/i }).click()
 })
 
+Cypress.Commands.add('signIn', (email = 'e2e@mail.com', password = '123456') => {
+  cy.url().should('eq', `${Cypress.config().baseUrl}/sign-in`)
+  cy.wait(2000)
+  cy.findAllByPlaceholderText(/email/i).type(email)
+  cy.findAllByPlaceholderText(/password/i).type(password)
+  cy.findByRole('button', { name: /sign in now/i }).click()
+})
 
 Cypress.Commands.add('shouldRenderBanner', () => {
   cy.get('.slick-slider')

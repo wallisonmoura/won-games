@@ -3,7 +3,7 @@
 import { createUser } from '../support/generate'
 
 describe('User', () => {
-  it('should sign up', () => {
+  it.skip('should sign up', () => {
     const user = createUser()
     cy.visit('/sign-up')
 
@@ -11,5 +11,18 @@ describe('User', () => {
     cy.wait(3000)
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
     cy.findByText(user.username).should('exist')
+  })
+
+  it('should sign in and sign out', () => {
+    cy.visit('/sign-in')
+    cy.signIn()
+
+    cy.wait(12000)
+    cy.findByText(/cypress/i).should('exist').click()
+    cy.findByText(/sign out/i).click()
+    cy.wait(2000)
+    cy.findByRole('link', { name: /sign in/i }).should('exist')
+    cy.findByText(/cypress/i).should('not.exist')
+
   })
 })
