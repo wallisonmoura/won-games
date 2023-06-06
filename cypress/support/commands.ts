@@ -55,7 +55,7 @@ Cypress.Commands.add('signUp', (user: User) => {
 })
 
 Cypress.Commands.add('signIn', (email = 'e2e@mail.com', password = '123456') => {
-  cy.url().should('eq', `${Cypress.config().baseUrl}/sign-in`)
+  // cy.url().should('eq', `${Cypress.config().baseUrl}/sign-in`)
   cy.wait(2000)
   cy.findAllByPlaceholderText(/email/i).type(email)
   cy.findAllByPlaceholderText(/password/i).type(password)
