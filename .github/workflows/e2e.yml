@@ -20,7 +20,16 @@ jobs:
         with:
           node-version: 16.x
 
-      - uses: c-hive/gha-yarn-cache@v3
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: |
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install dependencies
         run: yarn install
