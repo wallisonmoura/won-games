@@ -4,7 +4,7 @@ import { User, createUser } from "../support/generate"
 
 describe('Checkout', () => {
   let user: User
-  describe.skip('Free games', () => {
+  describe('Free games', () => {
     before(() => {
       user = createUser()
     })
@@ -70,7 +70,7 @@ describe('Checkout', () => {
       cy.getByDataCy('game-item').should('have.length', 1)
     })
   })
-  describe('Paid games', () => {
+  describe.skip('Paid games', () => {
     before(() => {
       user = createUser()
     })

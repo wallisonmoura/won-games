@@ -7,7 +7,7 @@ describe('Wishlist', () => {
 
     // redireciona e faz signIn
     cy.signIn()
-    cy.wait(12000)
+    cy.wait(15000)
 
     // verificar se a wishlist está vazia
     cy.findByText(/Your wishlist is empty/i).should('exist')

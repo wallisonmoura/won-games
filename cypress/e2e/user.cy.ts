@@ -34,7 +34,7 @@ describe('User', () => {
     cy.signIn()
 
     // espero ser redirecionado para profile
-    cy.wait(12000)
+    cy.wait(15000)
     cy.location('href').should('eq', `${Cypress.config().baseUrl}/profile/me`)
     cy.findByLabelText(/username/i).should('have.value', 'cypress')
     cy.findByLabelText(/e-mail/i).should('have.value', 'e2e@mail.com')

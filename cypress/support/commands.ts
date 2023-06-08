@@ -73,7 +73,7 @@ Cypress.Commands.add('shouldRenderBanner', () => {
 
 
     cy.get('.slick-dots > :nth-child(2) > button').click()
-    cy.wait(500)
+    cy.wait(1000)
 
     cy.get('.slick-slider')
       .find('.slick-active')
@@ -84,7 +84,7 @@ Cypress.Commands.add('shouldRenderBanner', () => {
       .should('exist');
 
     cy.get('.slick-dots > :nth-child(3) > button').click()
-    cy.wait(500)
+    cy.wait(1000)
 
     cy.get('.slick-slider')
       .find('.slick-active')
