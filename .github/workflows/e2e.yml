@@ -8,7 +8,14 @@ jobs:
       NODE_ENV: test
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Start services
+        run: docker-compose -f ./cypress/docker-compose.yml up -d
+
+      - name: Waiting for Strapi server
+        run: |
+          while ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://api:1337/admin -o /dev/null" || ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://api:1337/graphql -o /dev/null"; do
+            sleep 5
+          done
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -29,27 +36,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Start services
-        run: docker-compose -f ./cypress/docker-compose.yml up -d
-
-      - name: Waiting for Strapi server
-        run: docker-compose -f ./cypress/docker-compose.yml exec -T api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
-
       - name: Build
         run: yarn build
 
-  test:
-    needs: end-to-end
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Start services
-        run: docker-compose -f ./cypress/docker-compose.yml up -d
-
-      - name: Waiting for Strapi server
-        run: docker-compose -f ./cypress/docker-compose.yml exec -T api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
-
-      - name: Run Cypress tests
+      - name: Run End-to-End Tests
         run: yarn test:e2e:ci
