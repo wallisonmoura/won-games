@@ -32,11 +32,16 @@ jobs:
       - name: Build
         run: yarn build
 
+  test:
+    needs: end-to-end
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Start services
-        run: docker-compose up -d
+        run: docker-compose -f ./cypress/docker-compose.yml up -d
 
       - name: Waiting for Strapi server
-        run: docker-compose exec api dockerize -wait http://localhost:1337/admin -timeout 120s -wait-retry-interval 5s
+        run: docker-compose -f ./cypress/docker-compose.yml exec api dockerize -wait http://localhost:1337/admin -timeout 120s -wait-retry-interval 5s
 
       - name: Run Cypress tests
         run: yarn test:e2e:ci
