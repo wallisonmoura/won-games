@@ -11,13 +11,16 @@ services:
       DATABASE_PASSWORD: wongames123
       DATABASE_NAME: wongames
       STRIPE_KEY: 'pk_test_51MyQPuHa17B0OWQMoRfIUtN3PtztRUjpG77HWNT4uGuPBoRoJNzXQGaZB8cQZUFsEmUUab1ZPNF0dIyFDtmDK4IN00b5ALWrF6'
-    ports:
-      - '1337:1337'
     depends_on:
       - db
+    networks:
+      - wongames-network
 
   db:
     container_name: wongames_db
     image: wallisonmoura/wongames-database:latest
-    ports:
-      - '5432:5432'
+    networks:
+      - wongames-network
+
+networks:
+  wongames-network:
