@@ -8,23 +8,32 @@ jobs:
       NODE_ENV: test
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
+      - uses: actions/cache@v3
+        id: yarn-cache
         with:
-          path: ~/cache
+          path: |
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install dependencies
         run: yarn install
+
+      - name: Start services
+        run: docker-compose -f ./cypress/docker-compose.yml up -d
+
+      - name: Waiting for Strapi server
+        run: docker-compose -f ./cypress/docker-compose.yml exec api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
 
       - name: Build
         run: yarn build
@@ -34,14 +43,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Start services
         run: docker-compose -f ./cypress/docker-compose.yml up -d
 
       - name: Waiting for Strapi server
-        run: docker-compose -f ./cypress/docker-compose.yml exec api dockerize -wait http://localhost:1337/admin -timeout 120s -wait-retry-interval 5s
+        run: docker-compose -f ./cypress/docker-compose.yml exec api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
 
       - name: Run Cypress tests
         run: yarn test:e2e:ci
