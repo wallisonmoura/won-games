@@ -33,7 +33,7 @@ jobs:
         run: docker-compose -f ./cypress/docker-compose.yml up -d
 
       - name: Waiting for Strapi server
-        run: docker-compose -f ./cypress/docker-compose.yml exec api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
+        run: docker-compose -f ./cypress/docker-compose.yml exec -T api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
 
       - name: Build
         run: yarn build
@@ -49,7 +49,7 @@ jobs:
         run: docker-compose -f ./cypress/docker-compose.yml up -d
 
       - name: Waiting for Strapi server
-        run: docker-compose -f ./cypress/docker-compose.yml exec api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
+        run: docker-compose -f ./cypress/docker-compose.yml exec -T api dockerize -wait http://localhost:1337/admin -wait http://localhost:1337/graphql -timeout 120s -wait-retry-interval 5s
 
       - name: Run Cypress tests
         run: yarn test:e2e:ci
