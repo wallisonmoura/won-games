@@ -8,23 +8,20 @@ jobs:
       NODE_ENV: test
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
-      - uses: actions/cache@v3
-        id: yarn-cache
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          path: |
-            ~/cache
-            !~/cache/exclude
-            **/node_modules
+          path: ~/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          restore-keys: ${{ runner.os }}-yarn-
 
       - name: Install dependencies
         run: yarn install
@@ -37,6 +34,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Start services
         run: docker-compose -f ./cypress/docker-compose.yml up -d
 
