@@ -15,7 +15,7 @@ jobs:
 
       - name: Waiting for Strapi server
         run: |
-          while ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://api:1337/admin -o /dev/null" || ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://api:1337/graphql -o /dev/null"; do
+          while ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://localhost:1337/admin -o /dev/null" || ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://localhost:1337/graphql -o /dev/null"; do
             sleep 5
           done
 
