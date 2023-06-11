@@ -8,7 +8,9 @@ jobs:
       NODE_ENV: test
 
     steps:
-      - name: Start services
+      - uses: actions/checkout@v3
+
+      - name: Build the stack
         run: docker-compose -f ./cypress/docker-compose.yml up -d
 
       - name: Waiting for Strapi server
