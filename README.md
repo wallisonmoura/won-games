@@ -3,7 +3,7 @@
 </h2>
 
 <p align="center">
-  <img src="public/screenshots/screenshot_1.png" width='500'>
+  <img src="public/screenshot/Screenshot_1.png" width='500'>
 </p>
 
 <p align="center">
@@ -53,10 +53,10 @@ $ yarn cy:run
 ```
 ### 🎨 Screenshots
 <p align="center">
-  <img src="public/screenshots/screenshot_1.png" width='500'>
-  <img src="public/screenshots/screenshot_2.png" width='500'>
-  <img src="public/screenshots/screenshot_3.png" width='500'>
-  <img src="public/screenshots/screenshot_4.png" width='500'>
-  <img src="public/screenshots/screenshot_5.png" width='500'>
-  <img src="public/screenshots/screenshot_6.png" width='500'>
+  <img src="public/screenshot/Screenshot_1.png" width='500'>
+  <img src="public/screenshot/Screenshot_2.png" width='500'>
+  <img src="public/screenshot/Screenshot_3.png" width='500'>
+  <img src="public/screenshot/Screenshot_4.png" width='500'>
+  <img src="public/screenshot/Screenshot_5.png" width='500'>
+  <img src="public/screenshot/Screenshot_6.png" width='500'>
 </p>
