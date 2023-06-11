@@ -13,8 +13,8 @@ const Footer = () => {
             Contact
           </Heading>
 
-          <a href="mailto:wallisonmoura@wedsys.com.br">
-            wallisonmoura@wedsys.com.br
+          <a href="mailto:wallisonmoura.dev@gmail.com">
+            wallisonmoura.dev@gmail.com
           </a>
         </S.Column>
 
