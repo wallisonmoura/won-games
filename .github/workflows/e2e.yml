@@ -14,10 +14,7 @@ jobs:
         run: docker-compose -f ./cypress/docker-compose.yml up -d
 
       - name: Waiting for Strapi server
-        run: |
-          while ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://localhost:1337/admin -o /dev/null" || ! docker-compose -f ./cypress/docker-compose.yml exec -T api sh -c "curl -s http://localhost:1337/graphql -o /dev/null"; do
-            sleep 5
-          done
+        run: docker run container:wongames_api jwilder/dockerize -wait http://localhost:1337/admin -timeout 120s -wait-retry-interval 5s
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
